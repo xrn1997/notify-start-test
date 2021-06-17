@@ -1,0 +1,91 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+ //   id "com.huawei.agconnect"
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "edu.ysu.notify"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a","x86", "x86_64", "mips", "mips64"
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY  : "6debb886d3d9b4cdd0a28a88", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+//                MEIZU_APPKEY  : "MZ-魅族的APPKEY",
+//                MEIZU_APPID   : "MZ-魅族的APPID",
+//                XIAOMI_APPID  : "MI-小米的APPID",
+//                XIAOMI_APPKEY : "MI-小米的APPKEY",
+//                OPPO_APPKEY   : "OP-oppo的APPKEY",
+//                OPPO_APPID    : "OP-oppo的APPID",
+//                OPPO_APPSECRET: "OP-oppo的APPSECRET",
+//                VIVO_APPKEY   : "vivo的APPKEY",
+//                VIVO_APPID    : "vivo的APPID"
+        ]
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:1.5.0"
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "com.google.android.material:material:1.3.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
+    //Service使用Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    //EventBus
+    implementation "org.greenrobot:eventbus:3.2.0"
+    //协程
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+
+    //PermissionX
+    implementation "com.permissionx.guolindev:permissionx:1.4.0"
+
+    //JPush
+    implementation "cn.jiguang.sdk:jcore:2.7.2"
+    implementation "cn.jiguang.sdk:jpush:$jpush_version"
+//    // 接入华为厂商
+//    implementation "com.huawei.hms:push:4.0.2.300"
+//    implementation "cn.jiguang.sdk.plugin:huawei:$jpush_version"// 极光厂商插件版本与接入 JPush 版本保持一致，下同
+//    // 接入魅族厂商
+//    implementation "cn.jiguang.sdk.plugin:meizu:$jpush_version"
+//    // 接入 VIVO 厂商
+//    implementation "cn.jiguang.sdk.plugin:vivo:$jpush_version"
+//    // 接入 OPPO 厂商
+//    implementation "cn.jiguang.sdk.plugin:oppo:$jpush_version"
+//    // 接入小米厂商
+//    implementation "cn.jiguang.sdk.plugin:xiaomi:$jpush_version"
+}
